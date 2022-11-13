@@ -1,7 +1,9 @@
+import { NotFoundComponent } from './not-found/not-found.component';
+import { ClipComponent } from './clip/clip.component';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
-import { NgModule, Component } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
@@ -11,6 +13,14 @@ const routes: Routes = [
   {
     path: 'about',
     component: AboutComponent,
+  },
+  {
+    path: 'clip/:id',
+    component: ClipComponent,
+  },
+  {
+    path: '**',
+    component: NotFoundComponent,
   },
 ];
 
