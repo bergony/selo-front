@@ -6,6 +6,8 @@ import {
   OnInit,
   OnDestroy,
   Input,
+  Output,
+  EventEmitter,
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
@@ -23,6 +25,7 @@ export class EditComponent implements OnInit, OnDestroy, OnChanges {
   alertColor = 'blue';
   alertMsg = 'Please wait! Updating Clip';
   inSubmission = false;
+  @Output() update = new EventEmitter();
 
   clipID = new FormControl('', {
     nonNullable: true,
@@ -42,6 +45,8 @@ export class EditComponent implements OnInit, OnDestroy, OnChanges {
     if (!this.activeClip?.docID) {
       return;
     }
+    this.inSubmission = false;
+    this.showAlert = false;
 
     this.clipID.setValue(this.activeClip.docID);
     this.title.setValue(this.activeClip.title);
@@ -55,6 +60,9 @@ export class EditComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   async submit() {
+    if (!this.activeClip) {
+      return;
+    }
     this.inSubmission = true;
     this.showAlert = true;
     this.alertColor = 'blue';
@@ -68,6 +76,10 @@ export class EditComponent implements OnInit, OnDestroy, OnChanges {
       this.alertMsg = 'Something went wrong. Try again later';
       return;
     }
+
+    this.activeClip.title = this.title.value;
+    this.update.emit(this.activeClip);
+
     this.inSubmission = false;
     this.alertColor = 'green';
     this.alertMsg = 'Success!';
