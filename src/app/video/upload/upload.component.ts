@@ -1,3 +1,4 @@
+import { FfmpegService } from './../../services/ffmpeg.service';
 import { Router } from '@angular/router';
 import { ClipService } from './../../services/clip.service';
 import {
@@ -42,16 +43,18 @@ export class UploadComponent implements OnDestroy {
     private storage: AngularFireStorage,
     private clipService: ClipService,
     private auth: AngularFireAuth,
-    private router: Router
+    private router: Router,
+    public ffmpegService: FfmpegService
   ) {
     auth.user.subscribe((user) => (this.user = user));
+    this.ffmpegService.init();
   }
 
   ngOnDestroy(): void {
     this.task?.cancel();
   }
 
-  storeFile($event: Event) {
+  async storeFile($event: Event) {
     this.isDragover = false;
 
     this.file = ($event as DragEvent).dataTransfer
@@ -61,12 +64,12 @@ export class UploadComponent implements OnDestroy {
     if (!this.file || this.file.type !== 'video/mp4') {
       return;
     }
-
+    await this.ffmpegService.getScreenshots(this.file);
     this.title.setValue(this.file.name.replace(/\.[^/.]+$/, ''));
     this.nextStep = true;
   }
 
-  updaladFile() {
+  uploadFile() {
     this.uploadForm.disable();
     this.showAlert = true;
     this.alertColor = 'blue';
