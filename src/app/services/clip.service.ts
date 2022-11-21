@@ -78,7 +78,7 @@ export class ClipService {
     if (this.pendingReq) {
       return;
     }
-    this.pendingReq = false;
+    this.pendingReq = true;
 
     let query = this.clipsCollections.ref.orderBy('timestamp', 'desc').limit(6);
 
@@ -104,6 +104,6 @@ export class ClipService {
       });
     });
 
-    this.pendingReq = true;
+    this.pendingReq = false;
   }
 }
