@@ -3,7 +3,7 @@
   <nav class="container mx-auto flex justify-start items-center py-8 px-4">
     <!-- App Name -->
     <a class="text-3xl text-indigo-400 font-bold uppercase mr-4" routerLink="/"
-      >Clipz</a
+      >Selo</a
     >
 
     <div class="flex flex-grow items-center">
@@ -12,7 +12,7 @@
         <!-- Navigation Links -->
         <li *ngIf="!(auth.isAuthenticated$ | async); else authLinks">
           <a class="px-2" href="#" (click)="openModal($event)"
-            >Login / Register
+            >Conecte-se / Registro
           </a>
         </li>
         <ng-template #authLinks>
@@ -23,7 +23,7 @@
               routerLinkActive="text-indigo-400"
               [routerLinkActiveOptions]="{ exact: true }"
               [queryParams]="{ sort: '1' }"
-              >Manage</a
+              >Gerenciar</a
             >
           </li>
           <li>
@@ -32,16 +32,16 @@
               routerLink="/upload"
               routerLinkActive="text-indigo-400"
               [routerLinkActiveOptions]="{ exact: true }"
-              >Upload</a
+              >Envio</a
             >
           </li>
           <li>
-            <a class="px-2" (click)="auth.logout($event)">Logout</a>
+            <a class="px-2" (click)="auth.logout($event)">Sair</a>
           </li>
         </ng-template>
         <li routerLinkActive="text-indigo-400">
           <a class="px-2" routerLink="/about" routerLinkActive="text-indigo-400"
-            >About</a
+            >Sobre</a
           >
         </li>
       </ul>
