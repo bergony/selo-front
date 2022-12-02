@@ -5,6 +5,13 @@
 <form #loginForm="ngForm" (ngSubmit)="login()">
   <!-- Email -->
   <div class="mb-3">
+    <button
+      class="block w-full bg-indigo-400 text-white py-1.5 px-3 rounded transition hover:bg-indigo-500 disabled:opacity-50 disabled:bg-indigo-400"
+      (click)="adicionarProduto()"
+    >
+      POST
+    </button>
+
     <label class="inline-block mb-2">Email</label>
     <input
       #email="ngModel"

@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AlertComponent } from 'src/app/shared/alert/alert.component';
@@ -16,11 +17,12 @@ export class LoginComponent implements OnInit {
   alertColor = 'blue';
   inSubmission = false;
 
-  constructor(private auth: AngularFireAuth) {}
+  constructor(private auth: AngularFireAuth, private http: HttpClient) {}
 
   ngOnInit(): void {}
 
   async login() {
+    return;
     this.showAlert = true;
     this.alertMsg = 'Please wait! We are logging you in.';
     this.alertColor = 'blue';
@@ -40,5 +42,25 @@ export class LoginComponent implements OnInit {
     }
     this.alertMsg = 'login';
     this.alertColor = 'green';
+  }
+  adicionarProduto() {
+    var produto = {
+      nomeCompleto: 'Bergony',
+      login: 'admin693342',
+      senha: '123',
+      role: 3,
+      cpf: '21',
+    };
+
+    this.http.post(`/api/usuarios`, produto).subscribe(
+      (resultado) => {
+        console.log(resultado);
+      },
+      (erro) => {
+        if (erro.status == 400) {
+          console.log(erro);
+        }
+      }
+    );
   }
 }
