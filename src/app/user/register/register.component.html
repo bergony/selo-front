@@ -6,48 +6,30 @@
 <form [formGroup]="registerForm" (ngSubmit)="register()">
   <!-- Name -->
   <div class="mb-3">
-    <label class="inline-block mb-2">Name</label>
-    <app-input [control]="name" placeholder="Enter Name"></app-input>
+    <label class="inline-block mb-2">Nome</label>
+    <app-input [control]="nomeCompleto" placeholder="Insira o nome"></app-input>
   </div>
   <!-- Email -->
   <div class="mb-3">
     <label class="inline-block mb-2">Email</label>
-    <app-input [control]="email" type="email" placeholder="Email"></app-input>
-  </div>
-  <!-- Age -->
-  <div class="mb-3">
-    <label class="inline-block mb-2">Age</label>
-    <app-input
-      [control]="age"
-      type="number"
-      placeholder="Enter Age"
-    ></app-input>
+    <app-input [control]="login" type="email" placeholder="Email"></app-input>
   </div>
   <!-- Password -->
   <div class="mb-3">
-    <label class="inline-block mb-2">Password</label>
+    <label class="inline-block mb-2">Senha</label>
     <app-input
-      [control]="password"
+      [control]="senha"
       type="password"
-      placeholder="Enter Password"
+      placeholder="Insira a senha"
     ></app-input>
   </div>
-  <!-- Confirm Password -->
+  <!--CPF -->
   <div class="mb-3">
-    <label class="inline-block mb-2">Confirm Password</label>
+    <label class="inline-block mb-2">CPF</label>
     <app-input
-      [control]="confirm_password"
-      type="password"
-      placeholder="Enter Password"
-    ></app-input>
-  </div>
-  <!-- Phone Number -->
-  <div class="mb-3">
-    <label class="inline-block mb-2">Phone Number</label>
-    <app-input
-      [control]="phoneNumber"
-      placeholder="Enter Phone Number"
-      format="(00) 0 0000-0000"
+      [control]="cpf"
+      placeholder="Insira o cpf"
+      format="000.000.000-00"
     ></app-input>
   </div>
   <button

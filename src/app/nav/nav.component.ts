@@ -10,7 +10,9 @@ import { AuthService } from '../services/auth.service';
 export class NavComponent implements OnInit {
   constructor(public modal: ModalService, public auth: AuthService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.auth.isAuth();
+  }
   openModal($event: Event) {
     $event.preventDefault();
     this.modal.toggleModal('auth');
