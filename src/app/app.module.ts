@@ -16,6 +16,7 @@ import { NavComponent } from './nav/nav.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { FbTimestampPipe } from './pipes/fb-timestamp.pipe';
 import { UserModule } from './user/user.module';
+import { LivrosComponent } from './livros/livros.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { UserModule } from './user/user.module';
     NotFoundComponent,
     ClipsListComponent,
     FbTimestampPipe,
+    LivrosComponent,
   ],
   imports: [
     BrowserModule,
