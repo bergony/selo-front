@@ -12,6 +12,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { ModalService } from 'src/app/services/modal.service';
+import IPessoa from 'src/app/models/pessoa.model';
 
 @Component({
   selector: 'app-edit',
@@ -19,7 +20,7 @@ import { ModalService } from 'src/app/services/modal.service';
   styleUrls: ['./edit.component.css'],
 })
 export class EditComponent implements OnInit, OnDestroy, OnChanges {
-  @Input() activeClip: IClip | null = null;
+  @Input() activeClip: IPessoa | null = null;
 
   showAlert = false;
   alertColor = 'blue';
@@ -27,29 +28,37 @@ export class EditComponent implements OnInit, OnDestroy, OnChanges {
   inSubmission = false;
   @Output() update = new EventEmitter();
 
-  clipID = new FormControl('', {
+  login = new FormControl('', {
     nonNullable: true,
   });
-  title = new FormControl('', {
-    validators: [Validators.required, Validators.minLength(3)],
+  nomeCompleto = new FormControl();
+
+  cpf = new FormControl('', {
+    validators: [
+      Validators.required,
+      Validators.minLength(14),
+      Validators.maxLength(14),
+    ],
     nonNullable: true,
   });
 
   editForm = new FormGroup({
-    title: this.title,
-    id: this.clipID,
+    nomeCompleto: this.nomeCompleto,
+    login: this.login,
+    cpf: this.cpf,
   });
 
   constructor(private modal: ModalService, private clipService: ClipService) {}
   ngOnChanges(changes: SimpleChanges): void {
-    if (!this.activeClip?.docID) {
+    if (!this.activeClip?.login) {
       return;
     }
     this.inSubmission = false;
     this.showAlert = false;
 
-    this.clipID.setValue(this.activeClip.docID);
-    this.title.setValue(this.activeClip.title);
+    this.login.setValue(this.activeClip.login);
+    this.nomeCompleto.setValue(this.activeClip.nomeCompleto);
+    this.cpf.setValue(this.activeClip.cpf);
   }
   ngOnInit(): void {
     this.modal.register('editClip');
@@ -69,7 +78,6 @@ export class EditComponent implements OnInit, OnDestroy, OnChanges {
     this.alertMsg = 'Please wait! Updating Clip';
 
     try {
-      await this.clipService.updateClip(this.clipID.value, this.title.value);
     } catch (error) {
       this.inSubmission = false;
       this.alertColor = 'red';
@@ -77,7 +85,7 @@ export class EditComponent implements OnInit, OnDestroy, OnChanges {
       return;
     }
 
-    this.activeClip.title = this.title.value;
+    this.activeClip.nomeCompleto = this.nomeCompleto.value;
     this.update.emit(this.activeClip);
 
     this.inSubmission = false;

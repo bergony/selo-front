@@ -1,6 +1,6 @@
 <!-- Edit Modal -->
 <app-modal modalID="editClip">
-  <p class="text-2xl font-bold">Edit Video</p>
+  <p class="text-2xl font-bold">Editar Pessoa</p>
   <app-alert *ngIf="showAlert" [color]="alertColor">
     <p>{{ alertMsg }}</p>
   </app-alert>
@@ -8,8 +8,24 @@
   <form [formGroup]="editForm" (ngSubmit)="submit()">
     <!-- Title -->
     <div class="mt-4">
-      <label class="block text-xl mb-4">Title</label>
-      <app-input [control]="title" placeholder="Enter Title"></app-input>
+      <label class="block text-xl mb-4">Nome Completo</label>
+      <app-input [control]="nomeCompleto" placeholder="Enter Title"></app-input>
+    </div>
+
+    <!-- login -->
+    <div class="mt-4">
+      <label class="block text-xl mb-4">Login</label>
+      <app-input [control]="login" placeholder="Enter Title"></app-input>
+    </div>
+
+    <!-- cpf -->
+    <div class="mt-4">
+      <label class="block text-xl mb-4">cpf</label>
+      <app-input
+        [control]="cpf"
+        placeholder="Insira o cpf"
+        format="000.000.000-00"
+      ></app-input>
     </div>
 
     <div class="mt-4 text-right">
