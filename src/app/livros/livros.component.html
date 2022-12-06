@@ -4,6 +4,10 @@
   Meus Livros:
 </h2>
 <ul>
-  <li *ngFor="let livro of livros"> Nome: {{livro.titulo}} </li>
+  <li *ngFor="let livro of livros">
+     Nome: {{livro.titulo}}
+    <button (click)="mostrarDetalhes (livro)">Mostrar Detalhes</button>
+  </li>
 </ul>
+<h2 {{livro_completo}}></h2>
 </div>
