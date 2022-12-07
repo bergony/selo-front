@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
 
   async login() {
     this.showAlert = true;
-    this.alertMsg = 'Please wait! We are logging you in.';
+    this.alertMsg = 'Por favor, espere! Estamos logando você.';
     this.alertColor = 'blue';
     this.inSubmission = true;
 
@@ -40,7 +40,6 @@ export class LoginComponent implements OnInit {
           console.log('data' + data);
 
           this.token = data.token;
-          console.log('token' + this.token);
           let key = 'token';
           sessionStorage.setItem(key, this.token);
           this.auth.createUser();
@@ -48,7 +47,7 @@ export class LoginComponent implements OnInit {
         error: (error) => {
           console.error(error);
           this.alertMsg =
-            'An unexpected Error Occurred. Please try again later';
+            'Um erro inesperado ocorreu. Por favor, tente novamente mais tarde';
           this.alertColor = 'red';
           this.inSubmission = false;
           return;
