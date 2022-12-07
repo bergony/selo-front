@@ -13,6 +13,8 @@ import {
 } from '@angular/core';
 import { ModalService } from 'src/app/services/modal.service';
 import IPessoa from 'src/app/models/pessoa.model';
+import { HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-edit',
@@ -48,7 +50,11 @@ export class EditComponent implements OnInit, OnDestroy, OnChanges {
     cpf: this.cpf,
   });
 
-  constructor(private modal: ModalService, private clipService: ClipService) {}
+  constructor(
+    private modal: ModalService,
+    private clipService: ClipService,
+    private http: HttpClient
+  ) {}
   ngOnChanges(changes: SimpleChanges): void {
     if (!this.activeClip?.login) {
       return;
@@ -72,20 +78,37 @@ export class EditComponent implements OnInit, OnDestroy, OnChanges {
     if (!this.activeClip) {
       return;
     }
+
     this.inSubmission = true;
     this.showAlert = true;
     this.alertColor = 'blue';
     this.alertMsg = 'Please wait! Updating Clip';
 
-    try {
-    } catch (error) {
-      this.inSubmission = false;
-      this.alertColor = 'red';
-      this.alertMsg = 'Something went wrong. Try again later';
-      return;
-    }
-
     this.activeClip.nomeCompleto = this.nomeCompleto.value;
+    this.activeClip.login = this.login.value;
+    this.activeClip.cpf = this.cpf.value;
+
+    console.log('error foi' + this.activeClip);
+    const reqHeader = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+    });
+
+    await this.http
+      .put(`/api/pessoas/` + this.activeClip.id, this.activeClip, {
+        headers: reqHeader,
+      })
+      .subscribe({
+        next: (v) => console.log('next' + v),
+        error: (e) => {
+          console.error('error foi' + e);
+          this.inSubmission = false;
+          this.alertColor = 'red';
+          this.alertMsg = 'Something went wrong. Try again later';
+          return;
+        },
+      });
+
     this.update.emit(this.activeClip);
 
     this.inSubmission = false;
